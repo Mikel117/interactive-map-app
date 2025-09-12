@@ -1,12 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { CountriesService } from '../../../services/countries.service';
 import { SelectorComponent } from '../../atoms/selector/selector.component';
-import { SelectorComponentModel } from '../../atoms/selector/selector.components.model';
 import { map, take } from 'rxjs';
+import { MapComponent } from '../../organisms/map/map.component';
+import { MarkerMapInformation } from '../../atoms/marker/marker.component.model';
+import { SelectorComponentModel } from '../../atoms/selector/selector.components.model';
+import { MapTableComponent } from '../../molecules/table/table.component';
+import { mapMarkerInformation, mapTableInformation, addUuidToData } from '../helpers';
+import { TableMapInformation } from '../../molecules/table/table.component.model';
 
 @Component({
   selector: 'app-screen-map',
-  imports: [SelectorComponent],
+  imports: [SelectorComponent, MapComponent, MapTableComponent],
   standalone: true,
   providers: [CountriesService],
   templateUrl: './screen-map.component.html',
@@ -14,27 +19,6 @@ import { map, take } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScreenMapComponent implements OnInit {
-  countriesService = inject(CountriesService);
-  countriesList = signal<SelectorComponentModel[]>([]);
-
   ngOnInit() {
-    this.getCountries();
-  }
-
-  getCountries() {
-    this.countriesService
-      .getCountries()
-      .pipe(
-        take(1),
-        map((countries) =>
-          countries.results.map((country) => ({
-            label: country.name,
-            value: country.iso2_code,
-          }))
-        )
-      )
-      .subscribe((countries) => {
-        this.countriesList.set(countries);
-      });
   }
 }

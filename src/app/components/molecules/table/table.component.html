@@ -1,0 +1,25 @@
+<div class="table-container">
+	<div class="table-header-bar"></div>
+	<table>
+		<thead>
+			<tr>
+				<th>Código País</th>
+				<th>Código Postal</th>
+				<th>Lugar</th>
+				<th>Latitud</th>
+				<th>Longitud</th>
+			</tr>
+		</thead>
+		<tbody>
+            @for(item of data; track item.uuid) {
+                <tr class="table-row" [ngClass]="{ 'selected-row': selectedDirection() === item.uuid }" (click)="selectDirection(item)">
+                    <td>{{ item.countryCode }}</td>
+                    <td>{{ item.zipCode }}</td>
+                    <td>{{ item.placeName }}</td>
+                    <td>{{ item.lat }}</td>
+                    <td>{{ item.lng }}</td>
+                </tr>
+            }
+		</tbody>
+	</table>
+</div>
