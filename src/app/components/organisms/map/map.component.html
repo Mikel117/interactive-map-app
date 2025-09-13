@@ -1,2 +1,9 @@
-<div #map style="width:100%;height:400px"></div>
-<countries-map-search></countries-map-search>
+<div #map style="width:100%;height:100%"></div>
+@if(showCountrySelector) {
+    <countries-map-search (onClickBackButton)="onBackButtonClick()"></countries-map-search>
+}@else {
+    <div class="absolute-container-interface" (click)="showSelector()">
+        <h1>{{ selectedCountry() ? selectedCountry()?.label : 'Seleccionar País' }}</h1>
+        <img src="/edit.svg" alt="Chevron" class="icon" />
+    </div>
+}

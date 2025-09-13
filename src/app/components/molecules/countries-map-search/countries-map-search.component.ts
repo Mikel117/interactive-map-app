@@ -1,23 +1,23 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, output, signal } from '@angular/core';
 import { SelectorComponentModel } from '../../atoms/selector/selector.components.model';
 import { take, map } from 'rxjs';
 import { CountriesService } from '../../../services/countries.service';
 import { addUuidToData, mapMarkerInformation, mapTableInformation } from '../../templates/helpers';
 import { SelectorComponent } from '../../atoms/selector/selector.component';
+import { TitlesComponent } from '../titles/titles.component';
 
 @Component({
   standalone: true,
-  imports: [SelectorComponent],
+  imports: [SelectorComponent, TitlesComponent],
   selector: 'countries-map-search',
   templateUrl: 'countries-map-search.component.html',
   styleUrls: ['countries-map-search.component.scss'],
 })
 export class CountriesMapSearchComponent implements OnInit {
   countriesService = inject(CountriesService);
+  onClickBackButton = output<void>();
   countriesList = signal<SelectorComponentModel[]>([]);
   selectedCountry = signal<SelectorComponentModel | null>(null);
-
-  constructor() {}
 
   ngOnInit() {
     this.getCountries();
@@ -42,6 +42,7 @@ export class CountriesMapSearchComponent implements OnInit {
 
   onCountrySelected(country: SelectorComponentModel | null) {
     this.selectedCountry.set(country);
+    this.countriesService.selectedCountry.next(country ?? null);
     if (country) {
       this.countriesService
         .getPostalCodesInfo(country.value)
@@ -57,7 +58,10 @@ export class CountriesMapSearchComponent implements OnInit {
           this.countriesService.markers.set(data.markers);
           this.countriesService.tableData.set(data.tableData);
         });
-    } else {
     }
+  }
+
+  onBackButtonClick() {
+    this.onClickBackButton.emit();
   }
 }

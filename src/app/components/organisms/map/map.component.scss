@@ -1,12 +1,24 @@
 :host {
   display: block;
   position: relative;
+  height: 50%;
 }
 
 .container-search {
   width: 100%;
-  height: 400px;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+}
+
+.absolute-container-interface {
+  position: absolute;
+  top: 0;
+  padding-left: 30px;
+  padding-top: 50px;
+  color: #fff;
+  display: flex;
+  gap: 15px;
+  cursor: pointer;
 }
