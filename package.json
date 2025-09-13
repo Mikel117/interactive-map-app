@@ -9,7 +9,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand --ci --coverage --reporters=default",
-    "test:cov": "jest --coverage"
+    "test:cov": "jest --coverage",
+    "format": "prettier --write .",
+    "prepare": "husky"
   },
   "prettier": {
     "printWidth": 100,
@@ -24,6 +26,11 @@
     ]
   },
   "private": true,
+  "lint-staged": {
+    "*.{ts,js,json,md,scss,css,html}": [
+      "prettier --write"
+    ]
+  },
   "dependencies": {
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
@@ -43,9 +50,12 @@
     "@angular/compiler-cli": "^20.3.0",
     "@types/google.maps": "^3.58.1",
     "@types/jest": "^29.5.14",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-preset-angular": "^14.6.1",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2",
     "typescript": "~5.9.2"
   }
 }
