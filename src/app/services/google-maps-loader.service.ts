@@ -5,7 +5,17 @@ import { environments } from '../../environments/environments';
 export class GoogleMapsLoaderService {
   private loadingPromise: Promise<void> | null = null;
 
-  load(apiKey: string = environments.GOOGLE_MAPS_API_KEY, libraries: string[] = ['marker']): Promise<void> {
+  /**
+   * Loads the Google Maps JavaScript API if not already available.
+   * Subsequent calls reuse the same promise.
+   * @param apiKey API key to authenticate requests.
+   * @param libraries List of libraries to load (e.g., marker, places).
+   * @returns Promise that resolves when the API is loaded.
+   */
+  load(
+    apiKey: string = environments.GOOGLE_MAPS_API_KEY,
+    libraries: string[] = ['marker', 'places'],
+  ): Promise<void> {
     if ((window as any).google?.maps) return Promise.resolve();
     if (this.loadingPromise) return this.loadingPromise;
 

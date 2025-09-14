@@ -20,6 +20,7 @@ describe('CountriesMapSearchComponent', () => {
       imports: [CountriesMapSearchComponent],
     }).createComponent(CountriesMapSearchComponent);
     const comp = fixture.componentInstance;
+    fixture.detectChanges();
     comp.onCountrySelected(null);
     expect(svc.markers.set).toHaveBeenCalledWith([]);
     expect(svc.tableData.set).toHaveBeenCalledWith([]);

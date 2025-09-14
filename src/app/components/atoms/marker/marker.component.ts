@@ -12,11 +12,13 @@ import { CountriesService } from '../../../services/countries.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MarkerComponent {
-
   countriesService = inject(CountriesService);
   isSelected = model<boolean>(false);
   markerInformation = model<MarkerMapInformation | null>(null);
 
+  /**
+   * Emits selection for this marker to the shared CountriesService.
+   */
   onClick() {
     this.countriesService.selectedDirection.next(this.markerInformation()?.uuid || '');
   }
