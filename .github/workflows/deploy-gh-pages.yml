@@ -43,10 +43,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
+      # Nota: configurar Pages solo es necesario al desplegar; evitamos hacerlo en ramas feature
 
       - name: Check formatting (Prettier)
         run: npm run format:check
@@ -72,6 +69,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
