@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => SelectorComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   templateUrl: './selector.component.html',
   styleUrl: './selector.component.scss',
@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
 export class SelectorComponent implements OnInit, ControlValueAccessor {
   value: string | null = null;
   options = input<SelectorComponentModel[]>([]);
-  optionSelectedEvent = output<SelectorComponentModel|null>();
+  optionSelectedEvent = output<SelectorComponentModel | null>();
   optionSelected: SelectorComponentModel | null = null;
 
   dropdownOpen = signal(false);
@@ -28,6 +28,9 @@ export class SelectorComponent implements OnInit, ControlValueAccessor {
 
   showDropdown = computed(() => this.dropdownOpen() && this.filteredOptions().length > 0);
 
+  /**
+   * Initializes the filtered options with the provided options.
+   */
   ngOnInit(): void {
     this.filteredOptions.set(this.options() ?? []);
   }
@@ -46,6 +49,9 @@ export class SelectorComponent implements OnInit, ControlValueAccessor {
   onChange = (_: any) => {};
   onTouched = () => {};
 
+  /**
+   * Handles input typing and updates dropdown visibility and filtering.
+   */
   onInput(event: Event) {
     const input = event.target as HTMLInputElement;
     this.value = input.value;
@@ -54,11 +60,17 @@ export class SelectorComponent implements OnInit, ControlValueAccessor {
     this.filterOptions();
   }
 
+  /**
+   * Opens the dropdown and resets the filtered options.
+   */
   onFocus() {
     this.dropdownOpen.set(true);
     this.filteredOptions.set(this.options() ?? []);
   }
 
+  /**
+   * Closes the dropdown if focus moved outside the dropdown panel.
+   */
   onBlur(event: FocusEvent) {
     const relatedTarget = event.relatedTarget as HTMLElement | null;
     if (!relatedTarget || !relatedTarget.closest('.selector-dropdown')) {
@@ -68,28 +80,30 @@ export class SelectorComponent implements OnInit, ControlValueAccessor {
   }
 
   /**
-   * Filtra las opciones basándose en la entrada del usuario,
-   * ignorando mayúsculas, minúsculas,
-   * signos de puntuación y tildes.
+   * Filters options based on user input ignoring case, punctuation and diacritics.
    */
   filterOptions() {
-    const normalize = (str: string) =>
-      str
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[\p{P}\p{S}]/gu, '')
-        .toLowerCase();
-
-    const query = normalize(this.value || '');
-    this.filteredOptions.set((this.options() ?? []).filter(option =>
-      normalize(option.label).includes(query)
-    ));
+    const query = this.normalize(this.value || '');
+    this.filteredOptions.set(
+      (this.options() ?? []).filter((option) => this.normalize(option.label).includes(query)),
+    );
   }
 
   /**
-   * 
-   * @param option La opción seleccionada
-   * Actualiza el valor del selector y emite el evento de opción seleccionada.
+   * Normalizes a string by removing diacritics and punctuation and lowercasing.
+   * @param str Input string.
+   */
+  private normalize(str: string): string {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[\p{P}\p{S}]/gu, '')
+      .toLowerCase();
+  }
+
+  /**
+   * Updates the selector value and emits the selected option.
+   * @param option The selected option.
    */
   selectOption(option: SelectorComponentModel) {
     const value = option.label;
@@ -103,7 +117,7 @@ export class SelectorComponent implements OnInit, ControlValueAccessor {
   }
 
   /**
-   * Borra el valor y la opción seleccionada si se pulsa Backspace y hay una opción seleccionada
+   * Clears value and selection when Backspace is pressed and an option is selected.
    */
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'Backspace' && this.optionSelected) {
