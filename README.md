@@ -10,16 +10,15 @@ Maqueta en Angular de un mapa interactivo con búsqueda por país, marcadores, y
 
 ## Instalación
 
-````powershell
+```powershell
 # Instalar dependencias
 npm ci
 
 ## Ejecutar en desarrollo
 
-```powershell
 npm start
 # Abrir http://localhost:4200
-````
+```
 
 ## Variables de entorno
 
