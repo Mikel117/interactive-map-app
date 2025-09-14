@@ -16,7 +16,7 @@
   z-index: 2;
 }
 
-input[type="text"] {
+input[type='text'] {
   width: 100%;
   box-sizing: border-box;
   padding: 14px 31px 14px 1rem;
@@ -28,13 +28,14 @@ input[type="text"] {
   color: #fff;
   text-align: center;
   font-weight: 500;
+  height: 48px;
 }
 
-input[type="text"].dropdown-open {
+input[type='text'].dropdown-open {
   border-radius: 20px 20px 0 0 !important;
 }
 
-input[type="text"]:focus {
+input[type='text']:focus {
   box-shadow: 0 0 0 2px #0078d422;
 }
 
@@ -67,13 +68,15 @@ input[type="text"]:focus {
   background: #232938;
   border: none;
   border-radius: 0 0 20px 20px;
-  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.28);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28);
   margin: 0;
   padding: 0;
   list-style: none;
   max-height: 200px;
   overflow-y: auto;
-  transition: border-radius 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s cubic-bezier(.4,0,.2,1);
+  transition:
+    border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
   border-top: 1px solid transparent;
   margin-top: -2px;
@@ -82,7 +85,9 @@ input[type="text"]:focus {
 .selector-dropdown li {
   padding: 0.5rem 1rem;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   color: #fff;
   text-align: center;
   font-size: 1rem;

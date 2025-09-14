@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - feat/**
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create environments.ts from Secrets/Vars
+        run: |
+          mkdir -p src/environments
+          cat > src/environments/environments.ts << EOF
+          export const environments = {
+            VITE_COUNTRIES_API_URL: '${{ vars.VITE_COUNTRIES_API_URL }}',
+            VITE_GOOGLE_MAPS_ID: '${{ vars.VITE_GOOGLE_MAPS_ID }}',
+            GOOGLE_MAPS_API_KEY: '${{ secrets.GOOGLE_MAPS_API_KEY }}'
+          };
+          EOF
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting (Prettier)
+        run: npm run format:check
+
+      - name: Run tests (Jest)
+        run: npm run test:ci
+
+      - name: Build Angular app
+        run: |
+          npm run build -- --base-href "/interactive-map-app/" --deploy-url "/interactive-map-app/"
+          cp dist/interactive-map-app/browser/index.html dist/interactive-map-app/browser/404.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/interactive-map-app/browser
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

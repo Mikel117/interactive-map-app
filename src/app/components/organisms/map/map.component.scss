@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  position: relative;
+  height: 50%;
+}
+
+.container-search {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.absolute-container-interface {
+  position: absolute;
+  top: 0;
+  padding-left: 30px;
+  padding-top: 50px;
+  color: #fff;
+  display: flex;
+  gap: 15px;
+  cursor: pointer;
+  h1 {
+    color: #2e3140;
+  }
+}
+
+.absolute-container-interface-bottom {
+  position: absolute;
+  bottom: 0;
+  padding: 25px;
+  button {
+    padding: 10px;
+    cursor: pointer;
+    background: #2e3140;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 10px;
+    &:hover {
+      background: #3e414f;
+    }
+  }
+}

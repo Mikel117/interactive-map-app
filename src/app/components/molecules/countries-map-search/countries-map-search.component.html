@@ -1,0 +1,9 @@
+<div class="map-search-container">
+  <app-titles [isBlackButtonShown]="true" (onClickBackButton)="onBackButtonClick()"></app-titles>
+
+  <app-atom-selector
+    class="selector"
+    [options]="countriesList()"
+    (optionSelectedEvent)="onCountrySelected($event)"
+  ></app-atom-selector>
+</div>

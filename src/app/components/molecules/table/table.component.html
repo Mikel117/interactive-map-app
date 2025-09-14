@@ -1,0 +1,51 @@
+<div class="table-container">
+  <div
+    class="table-header-bar"
+    (mousedown)="onBarMouseDown($event)"
+    (touchstart)="onBarTouchStart($event)"
+  ></div>
+  @if (isTableVisible) {
+    <div
+      class="table-wrapper"
+      [style.transform]="dragOffsetY ? 'translateY(' + dragOffsetY + 'px)' : ''"
+      [style.transition]="dragging ? 'none' : 'transform 0.2s'"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th>Código País</th>
+            <th>Código Postal</th>
+            <th>Lugar</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+          </tr>
+        </thead>
+      </table>
+      @if (data.length === 0) {
+        <div class="no-data">No hay datos disponibles</div>
+      } @else {
+        <div class="table-body-scroll">
+          <table>
+            <tbody>
+              @for (item of data; track item.uuid) {
+                <tr
+                  class="table-row"
+                  [ngClass]="{ 'selected-row': selectedDirection() === item.uuid }"
+                  (click)="selectDirection(item)"
+                >
+                  <td>{{ item.countryCode }}</td>
+                  <td>{{ item.zipCode }}</td>
+                  <td>{{ item.placeName }}</td>
+                  <td>{{ item.lat }}</td>
+                  <td>{{ item.lng }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  } @else {
+    <button class="restore-table-btn" (click)="showTable()">Mostrar tabla</button>
+  }
+</div>

@@ -1,29 +1,36 @@
 <div class="selector-container">
   <div class="selector-input">
     <input
-        type="text"
-        [value]="value"
-  (input)="onInput($event)"
-  (keydown)="onKeyDown($event)"
-        (focus)="onFocus()"
-        (blur)="onBlur($event)"
-        placeholder="Selecciona un país"
-        autocomplete="off"
-        [class.dropdown-open]="showDropdown()"
+      type="text"
+      [value]="value"
+      (input)="onInput($event)"
+      (keydown)="onKeyDown($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur($event)"
+      placeholder="Selecciona un país"
+      autocomplete="off"
+      [class.dropdown-open]="showDropdown()"
     />
     <span class="selector-arrow">
       <svg viewBox="0 0 24 24">
-        <path d="M7 10l5 5 5-5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path
+          d="M7 10l5 5 5-5"
+          stroke="white"
+          stroke-width="2"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
       </svg>
     </span>
   </div>
-  @if(showDropdown()) {
+  @if (showDropdown()) {
     <ul class="selector-dropdown">
-        @for(option of filteredOptions(); track option.label) {
-            <li (mousedown)="selectOption(option)" tabindex="-1">
-            {{ option.label }}
-            </li>
-        }
+      @for (option of filteredOptions(); track option.label) {
+        <li (mousedown)="selectOption(option)" tabindex="-1">
+          {{ option.label }}
+        </li>
+      }
     </ul>
   }
 </div>
