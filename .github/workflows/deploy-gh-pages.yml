@@ -23,6 +23,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create environments.ts from Secrets/Vars
+        run: |
+          mkdir -p src/environments
+          cat > src/environments/environments.ts << EOF
+          export const environments = {
+            VITE_COUNTRIES_API_URL: '${{ vars.VITE_COUNTRIES_API_URL }}',
+            VITE_GOOGLE_MAPS_ID: '${{ vars.VITE_GOOGLE_MAPS_ID }}',
+            GOOGLE_MAPS_API_KEY: '${{ secrets.GOOGLE_MAPS_API_KEY }}'
+          };
+          EOF
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
