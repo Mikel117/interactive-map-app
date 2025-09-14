@@ -13,9 +13,9 @@ describe('SelectorComponent', () => {
     ];
     fixture.componentRef.setInput('options', opts);
     comp.ngOnInit();
-  comp.value = 'cote divoire';
+    comp.value = 'cote divoire';
     comp.filterOptions();
-    const labels = comp.filteredOptions().map(o => o.label);
+    const labels = comp.filteredOptions().map((o) => o.label);
     expect(labels).toContain('Côte d’Ivoire');
   });
 });

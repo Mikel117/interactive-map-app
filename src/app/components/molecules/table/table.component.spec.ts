@@ -19,7 +19,14 @@ describe('MapTableComponent', () => {
       providers: [{ provide: CountriesService, useValue: svc }],
     }).createComponent(MapTableComponent);
     const comp = fixture.componentInstance;
-    comp.selectDirection({ zipCode: '2000', countryCode: 'ES', placeName: 'Barcelona', lat: 0, lng: 0, uuid: 'b' });
+    comp.selectDirection({
+      zipCode: '2000',
+      countryCode: 'ES',
+      placeName: 'Barcelona',
+      lat: 0,
+      lng: 0,
+      uuid: 'b',
+    });
     expect(nextSpy).toHaveBeenCalledWith('b');
   });
 });
