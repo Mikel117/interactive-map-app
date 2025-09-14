@@ -15,6 +15,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create environments.ts for tests
+        run: |
+          mkdir -p src/environments
+          cat > src/environments/environments.ts << 'EOF'
+          export const environments = {
+            VITE_COUNTRIES_API_URL: 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets',
+            VITE_GOOGLE_MAPS_ID: '',
+            GOOGLE_MAPS_API_KEY: ''
+          };
+          EOF
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
