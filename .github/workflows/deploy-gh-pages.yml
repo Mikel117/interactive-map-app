@@ -52,12 +52,12 @@ jobs:
       - name: Build Angular app
         run: |
           npm run build -- --base-href "/interactive-map-app/" --deploy-url "/interactive-map-app/"
-          cp dist/browser/index.html dist/browser/404.html
+          cp dist/interactive-map-app/index.html dist/interactive-map-app/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/browser
+          path: dist/interactive-map-app
 
   deploy:
     if: github.ref == 'refs/heads/main'
