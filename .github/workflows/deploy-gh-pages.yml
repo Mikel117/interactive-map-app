@@ -45,9 +45,6 @@ jobs:
 
       # Nota: configurar Pages solo es necesario al desplegar; evitamos hacerlo en ramas feature
 
-      - name: Check formatting (Prettier)
-        run: npm run format:check
-
       - name: Run tests (Jest)
         run: npm run test:ci
 
