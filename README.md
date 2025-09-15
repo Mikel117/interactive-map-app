@@ -11,7 +11,7 @@ Maqueta en Angular de un mapa interactivo con búsqueda por país, marcadores, y
 ## Instalar dependencias
 
 ```powershell
-npm ci
+npm install
 ```
 
 ## Ejecutar en desarrollo
