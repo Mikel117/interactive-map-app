@@ -1,0 +1,7 @@
+export const Z_INDEX_FOR_MARKERS = 10;
+export const INITIAL_CENTER_COORDINATES = { lat: 40.4168, lng: -3.7038 };
+export const INITIAL_ZOOM_LEVEL = 5;
+export const STROKE_COLOR_FOR_POLYLINES = '#2d3140';
+export const STROKE_WEIGHT_FOR_POLYLINES = 5;
+export const MAX_WIDTH_FOR_MARKERS_PHOTO = 400;
+export const MAX_HEIGHT_FOR_MARKERS_PHOTO = 300;

@@ -36,3 +36,29 @@ export interface Coordinates {
   lon: number;
   lat: number;
 }
+
+export interface FacetsResponse {
+  links: Link[];
+  facets: FacetsResponseFacet[];
+}
+
+export interface FacetsResponseFacet {
+  name: string;
+  facets: FacetFacet[];
+}
+
+export interface FacetFacet {
+  name: string;
+  count: number;
+  state: State;
+  value: string;
+}
+
+export enum State {
+  Displayed = 'displayed',
+}
+
+export interface Link {
+  rel: string;
+  href: string;
+}

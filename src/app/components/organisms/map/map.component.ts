@@ -20,10 +20,20 @@ import { CountriesMapSearchComponent } from '../../molecules/countries-map-searc
 import { MapsService } from '../../../services/maps.service';
 import { GoogleMapsLoaderService } from '../../../services/google-maps-loader.service';
 import { MarkerMapInformation } from '../../atoms/marker/marker.component.model';
+import { ErrorToastComponent } from '../../atoms/error-toast/error-toast.component';
+import {
+  INITIAL_CENTER_COORDINATES,
+  INITIAL_ZOOM_LEVEL,
+  MAX_HEIGHT_FOR_MARKERS_PHOTO,
+  MAX_WIDTH_FOR_MARKERS_PHOTO,
+  STROKE_COLOR_FOR_POLYLINES,
+  STROKE_WEIGHT_FOR_POLYLINES,
+  Z_INDEX_FOR_MARKERS,
+} from '../helpers';
 
 @Component({
   selector: 'app-map',
-  imports: [GoogleMapsModule, CountriesMapSearchComponent],
+  imports: [GoogleMapsModule, CountriesMapSearchComponent, ErrorToastComponent],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
   standalone: true,
@@ -51,6 +61,9 @@ export class MapComponent implements OnInit {
   private directionsRenderer: google.maps.DirectionsRenderer | null = null;
   totalDistanceKm: number | null = null;
   isRouting = false;
+  showError = false;
+  errorMessage =
+    'No fue posible trazar la ruta en vehículo. Prueba con otro país o selecciona puntos más cercanos.';
 
   get hasEnoughMarkers(): boolean {
     const list = this.countriesService.markers();
@@ -160,7 +173,7 @@ export class MapComponent implements OnInit {
         map: this.map,
         position: { lat: markerInfo.lat, lng: markerInfo.lng },
         content: markerElement,
-        zIndex: 10,
+        zIndex: Z_INDEX_FOR_MARKERS,
         collisionBehavior: google.maps.CollisionBehavior.REQUIRED,
       });
       this.markerEntries.push({ marker, ref: markerRef, info: markerInfo });
@@ -189,8 +202,8 @@ export class MapComponent implements OnInit {
   async createMap() {
     await this.mapsLoader.load();
     this.map = new google.maps.Map(this.mapElement.nativeElement, {
-      center: { lat: 40.4168, lng: -3.7038 },
-      zoom: 6,
+      center: INITIAL_CENTER_COORDINATES,
+      zoom: INITIAL_ZOOM_LEVEL,
       mapTypeControl: false,
       streetViewControl: false,
       fullscreenControl: false,
@@ -199,12 +212,15 @@ export class MapComponent implements OnInit {
     });
     this.infoWindow = new google.maps.InfoWindow();
     this.map.addListener('click', () => this.infoWindow?.close());
-    // Inicializar Directions
+
     this.directionsService = new google.maps.DirectionsService();
     this.directionsRenderer = new google.maps.DirectionsRenderer({
       map: this.map,
       suppressMarkers: true,
-      polylineOptions: { strokeColor: '#2E7D32', strokeWeight: 4 },
+      polylineOptions: {
+        strokeColor: STROKE_COLOR_FOR_POLYLINES,
+        strokeWeight: STROKE_WEIGHT_FOR_POLYLINES,
+      },
     });
   }
 
@@ -213,6 +229,7 @@ export class MapComponent implements OnInit {
    */
   onBackButtonClick() {
     this.showCountrySelector = false;
+    this.showError = false;
   }
 
   /**
@@ -220,6 +237,7 @@ export class MapComponent implements OnInit {
    */
   showSelector() {
     this.showCountrySelector = true;
+    this.showError = false;
   }
 
   /**
@@ -307,6 +325,8 @@ export class MapComponent implements OnInit {
       })
       .catch((err) => {
         console.error('Directions error', err);
+        this.showError = true;
+        this.errorMessage = 'Esta ruta no es posible en auto. Selecciona otro país.';
         this.isRouting = false;
         this.cdr.markForCheck();
       });
@@ -339,7 +359,10 @@ export class MapComponent implements OnInit {
               (r: any) => Array.isArray(r.photos) && r.photos.length > 0,
             );
             if (!withPhoto) return resolve(null);
-            const url = withPhoto.photos[0].getUrl({ maxWidth: 400, maxHeight: 300 });
+            const url = withPhoto.photos[0].getUrl({
+              maxWidth: MAX_WIDTH_FOR_MARKERS_PHOTO,
+              maxHeight: MAX_HEIGHT_FOR_MARKERS_PHOTO,
+            });
             this.placePhotoCache.set(cacheKey, url);
             resolve(url);
           },
