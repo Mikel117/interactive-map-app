@@ -17,12 +17,12 @@
   top: 0;
   padding-left: 30px;
   padding-top: 50px;
-  color: #fff;
+  color: var(--color-primary-contrast);
   display: flex;
   gap: 15px;
   cursor: pointer;
   h1 {
-    color: #2e3140;
+    color: var(--color-neutral-800);
   }
 }
 
@@ -33,13 +33,13 @@
   button {
     padding: 10px;
     cursor: pointer;
-    background: #2e3140;
-    color: #fff;
+    background: var(--color-neutral-800);
+    color: var(--color-primary-contrast);
     font-weight: bold;
     font-size: 18px;
     border-radius: 10px;
     &:hover {
-      background: #3e414f;
+      background: var(--color-neutral-600);
     }
   }
 }

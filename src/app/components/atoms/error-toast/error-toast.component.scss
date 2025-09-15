@@ -3,9 +3,9 @@
   top: 16px;
   right: 16px;
   z-index: 2000;
-  background: #ffefef;
-  color: #7a1111;
-  border: 1px solid #f2c4c4;
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
+  border: 1px solid var(--color-error-border);
   border-radius: 8px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   overflow: hidden;
@@ -38,7 +38,7 @@
 
 .bar {
   height: 3px;
-  background: linear-gradient(90deg, #e57373, #ef9a9a);
+  background: linear-gradient(90deg, var(--color-error-grad-start), var(--color-error-grad-end));
   width: 100%;
 }
 

@@ -4,3 +4,35 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
+
+:root {
+  /* Base */
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* Neutrals */
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d6d6d6;
+  --color-neutral-400: #e0e0e0;
+  --color-neutral-500: #cbd5e1;
+  --color-neutral-600: #3e414f;
+  --color-neutral-700: #2d3140;
+  --color-neutral-800: #2e3140;
+  --color-neutral-900: #232938;
+
+  /* Brand/Accents */
+  --color-primary: #232938;
+  --color-primary-contrast: #fff;
+  --color-surface: #fff;
+
+  /* Semantic */
+  --color-success: #3de9d6;
+  --color-danger: #ff0407;
+  --color-error-bg: #ffefef;
+  --color-error-border: #f2c4c4;
+  --color-error-text: #7a1111;
+  --color-error-grad-start: #e57373;
+  --color-error-grad-end: #ef9a9a;
+}
