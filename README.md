@@ -4,41 +4,13 @@ Maqueta en Angular de un mapa interactivo con búsqueda por país, marcadores, y
 
 ## Requisitos
 
-- Node.js 20.19.0
-- npm 10.8.2
-- Angular 20
+- Node.js 20.19.0 o superior
+- npm 10.8.2 o superior
+- Angular 20 (opcional, el proyecto ya trae CLI local)
 
-### Si no tienes estas versiones (Windows)
-
-Opción A (recomendada) con nvm-windows:
+## Instalar dependencias
 
 ```powershell
-nvm install 20.19.0
-nvm use 20.19.0
-npm i -g npm@10.8.2
-node -v
-npm -v
-```
-
-Opción B (sin nvm):
-
-- Descarga Node 20.19.0 desde https://nodejs.org y reinstala. Luego, si hace falta:
-
-```powershell
-npm i -g npm@10.8.2
-```
-
-Angular CLI global (opcional, el proyecto ya trae CLI local):
-
-```powershell
-npm i -g @angular/cli@20
-ng version
-```
-
-## Instalación
-
-```powershell
-# Instalar dependencias
 npm ci
 ```
 
@@ -46,20 +18,30 @@ npm ci
 
 ```powershell
 npm start
-# Abrir http://localhost:4200
 ```
+
+Abrir http://localhost:4200
 
 ## Variables de entorno
 
 Se dejaron las variables de entorno con fines de prueba. En un proyecto real no se deben exponer.
+Las variables de Google solo funcionan en localhost:4200 y en la pagina desplegada con Github Pages.
+
+## Pagina Demo con despliegue automatizado Actions
+
+Puedes visualizar la app desplegada desde https://mikel117.github.io/interactive-map-app/
 
 ## Pruebas
+
+Para ejecutar las pruebas usa el siguiente comando:
 
 ```powershell
 npm run test:ci
 ```
 
 ## Build de producción
+
+Si quieres hacer un build usa el siguiente comando:
 
 ```powershell
 npm run build
