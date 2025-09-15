@@ -29,11 +29,11 @@
                   [ngClass]="{ 'selected-row': selectedDirection() === item.uuid }"
                   (click)="selectDirection(item)"
                 >
-                  <td>{{ item.countryCode }}</td>
-                  <td>{{ item.zipCode }}</td>
-                  <td>{{ item.placeName }}</td>
-                  <td>{{ item.lat }}</td>
-                  <td>{{ item.lng }}</td>
+                  <td [title]="item.countryCode">{{ item.countryCode }}</td>
+                  <td [title]="item.zipCode">{{ item.zipCode }}</td>
+                  <td [title]="item.placeName">{{ item.placeName }}</td>
+                  <td [title]="item.lat">{{ item.lat }}</td>
+                  <td [title]="item.lng">{{ item.lng }}</td>
                 </tr>
               }
             </tbody>

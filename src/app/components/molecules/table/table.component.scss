@@ -13,6 +13,43 @@
   height: 100%;
 }
 
+/* Mantener columnas estables y truncar contenido largo con “…” */
+.table-wrapper table,
+.table-body-scroll table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-wrapper th,
+.table-body-scroll td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Distribución de anchos por columna (ajustable) */
+.table-wrapper th:nth-child(1),
+.table-body-scroll td:nth-child(1) {
+  width: 15%;
+}
+.table-wrapper th:nth-child(2),
+.table-body-scroll td:nth-child(2) {
+  width: 20%;
+}
+.table-wrapper th:nth-child(3),
+.table-body-scroll td:nth-child(3) {
+  width: 35%;
+}
+.table-wrapper th:nth-child(4),
+.table-body-scroll td:nth-child(4) {
+  width: 15%;
+}
+.table-wrapper th:nth-child(5),
+.table-body-scroll td:nth-child(5) {
+  width: 15%;
+}
+
 .table-header-bar {
   width: 60px;
   height: 6px;
